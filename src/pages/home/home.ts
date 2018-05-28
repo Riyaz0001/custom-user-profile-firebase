@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireAuth } from "angularfire2/auth";
-// import { AngularFireDatabase } from "angularfire2/database";
-import { AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/database-deprecated";
+import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
+
 import { Profile } from '../../model/profile';
 
 @IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
+  providers: [AngularFireDatabase]
 })
 export class HomePage {
 
-    profileData: FirebaseObjectObservable<Profile>
+    profileData: AngularFireObject<Profile>
 
   constructor(
       private afAuth: AngularFireAuth,
@@ -24,6 +25,8 @@ export class HomePage {
 
   ionViewWillLoad(){
       this.afAuth.authState.subscribe(data => {
+          console.log("Auth Success: " + JSON.stringify(data));
+          
           if(data.email && data.uid) {  
               this.toast.create({
                   message: `Welcome to EidSMS, ${data.email}`,
@@ -31,6 +34,7 @@ export class HomePage {
                 }).present();
 
                 this.profileData = this.afDatabase.object(`profile/${data.uid}`);
+                // this.profileData = this.afDatabase.list<any>(`${this.afAuth.user}`).valueChanges().subscribe(console.log);
             
             } else {
                 this.toast.create({

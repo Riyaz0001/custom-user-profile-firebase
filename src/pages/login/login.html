@@ -19,7 +19,17 @@
         <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
 
-    <button ion-button (click)="login(user)">Login</button>
-    <button ion-button (click)="register()">Register</button>
+    <button ion-button color="dark" (click)="login(user)">Login</button>
+    <button ion-button color="dark"  (click)="register()">Register</button>
+
+    <button ion-button block icon-left color="danger" (click)="loginWithGoogle()">
+        <ion-icon name="logo-googleplus"></ion-icon>
+        Sign In With Google+
+    </button>
+
+    <button ion-button block icon-left color="primary" (click)="loginWithFacebook()">
+        <ion-icon name="logo-facebook"></ion-icon>
+        Sign In With Google+
+    </button>
 
 </ion-content>

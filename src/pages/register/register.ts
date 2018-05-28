@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { User } from '../../model/user';
 import { AngularFireAuth } from "angularfire2/auth";
+
+import { User } from '../../model/user';
+import { ProfilePage } from '../profile/profile';
 
 @IonicPage()
 @Component({
@@ -10,23 +12,23 @@ import { AngularFireAuth } from "angularfire2/auth";
 })
 export class RegisterPage {
 
-    user = {} as User;
+    profile = {} as User;
 
   constructor(
       public navCtrl: NavController, 
       public navParams: NavParams,
-      private auth: AngularFireAuth) {
+      private afAuth: AngularFireAuth) {
 
   }
 
-  async register(user: User) {
+  async register(newUser: User) {
       try {
-          const result = await this.auth.auth.createUserWithEmailAndPassword(user.email, user.password);
-          console.log(result);
-          
+          const result = await this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, newUser.password);
+          console.log("Register Success, Data: " + JSON.stringify(result));
+          this.navCtrl.push(ProfilePage);
       }
       catch(e) {
-          console.error(e);
+          console.error(JSON.stringify(e));
       }
   }
 

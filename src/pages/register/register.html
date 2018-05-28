@@ -12,12 +12,27 @@
 
     <ion-item>
         <ion-label floating>Email Address</ion-label>
-        <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+        <ion-input type="text" [(ngModel)]="profile.email"></ion-input>
     </ion-item>
-    
+
+    <ion-item>
+        <ion-label floating>First Name</ion-label>
+        <ion-input type="text" [(ngModel)]="profile.firstName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>Last Name</ion-label>
+        <ion-input type="text" [(ngModel)]="profile.lastName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>Phone Number</ion-label>
+        <ion-input type="text" [(ngModel)]="profile.phoneNumber"></ion-input>
+    </ion-item>
+
     <ion-item>
         <ion-label floating>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+        <ion-input type="password" [(ngModel)]="profile.password"></ion-input>
     </ion-item>
 
     <button ion-button (click)="register(user)">Register</button>
