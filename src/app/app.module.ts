@@ -13,6 +13,7 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
 import { HomePageModule } from '../pages/home/home.module';
 import { LoginPage } from "../pages/login/login";
 import { ProfilePage } from "../pages/profile/profile";
+import { RegisterPage } from "../pages/register/register";
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { ProfilePage } from "../pages/profile/profile";
     MyApp,
     LoginPage,
     ProfilePage,
-    // HomePage
+    RegisterPage
 
   ],
   imports: [
@@ -36,7 +37,7 @@ import { ProfilePage } from "../pages/profile/profile";
     MyApp,
     LoginPage,
     ProfilePage,
-    // HomePage
+    RegisterPage
   ],
   providers: [
     StatusBar,

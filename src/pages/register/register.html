@@ -10,12 +10,12 @@
 
 <ion-content padding>
 
-    <ion-item>
+    <!-- <ion-item>
         <ion-label floating>Email Address</ion-label>
         <ion-input type="text" [(ngModel)]="profile.email"></ion-input>
-    </ion-item>
+    </ion-item> -->
 
-    <ion-item>
+    <!-- <ion-item>
         <ion-label floating>First Name</ion-label>
         <ion-input type="text" [(ngModel)]="profile.firstName"></ion-input>
     </ion-item>
@@ -28,13 +28,79 @@
     <ion-item>
         <ion-label floating>Phone Number</ion-label>
         <ion-input type="text" [(ngModel)]="profile.phoneNumber"></ion-input>
+    </ion-item> -->
+
+    <!-- <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
 
     <ion-item>
-        <ion-label floating>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="profile.password"></ion-input>
+        <ion-label floating>Confirm Password</ion-label>
+        <ion-input type="password" [(ngModel)]="user.confirmPass"></ion-input>
     </ion-item>
 
     <button ion-button (click)="register(user)">Register</button>
-        
+         -->
+
+
+
+    <p *ngIf="submitAttempt" style="color: #ea6153;">There are errors with your submission!</p>
+
+    <div [formGroup]="registerForm">
+
+    <ion-item [class.invalid]="!email.valid && email.touched">
+        <ion-label floating>Email</ion-label>
+        <ion-input type="text" value="" formControl="email" autocapitalize="off"></ion-input>
+    </ion-item>
+
+        <ion-item *ngIf="email.hasError('required') && email.touched" class="invalid">
+            <p>* Email is required!</p>
+        </ion-item>
+
+        <ion-item *ngIf="email.hasError('minlength') && email.touched" class="invalid">
+            <p>* Minimum username length is 3!</p>
+        </ion-item>
+
+        <ion-item *ngIf="email.hasError('maxlength') && email.touched" class="invalid">
+            <p>* Maximum username length is 25!</p>
+        </ion-item>
+
+        <ion-item *ngIf="email.hasError('invalid_domain') && email.touched" class="invalid">
+            <p>* Invalid e-mail domain!</p>
+        </ion-item>
+
+    <ion-item [class.invalid]="!password.valid && password.touched">
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" value="" formControl="password"></ion-input>
+    </ion-item>
+
+        <ion-item *ngIf="password.hasError('required') && password.touched" class="invalid">
+            <p>* Password is required!</p>
+        </ion-item>
+
+        <ion-item *ngIf="password.hasError('minlength') && password.touched" class="invalid">
+            <p>* Minimum password length is 3!</p>
+        </ion-item>
+
+        <ion-item *ngIf="password.hasError('maxlength') && password.touched" class="invalid">
+            <p>* Maximum password length is 25!</p>
+        </ion-item>
+
+    <ion-item [class.invalid]="!re_password.valid && re_password.touched">
+        <ion-label floating>Re-enter Password</ion-label>
+        <ion-input type="password" value="" formControl="re_password"></ion-input>
+    </ion-item>
+
+        <ion-item *ngIf="re_password.hasError('pw_mismatch') && re_password.touched" class="invalid">
+            <p>* Passwords do not match!</p>
+        </ion-item>
+
+    </div>
+
+    <button primary (click)="save()" [disabled]="(!registerForm.valid)">Submit Form</button>
+    <br />
+    <br />
+    <button primary (click)="logControlErrors()">Log Control Errors</button>
+
 </ion-content>
