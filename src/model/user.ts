@@ -1,6 +1,9 @@
 
 export interface User {
+    username: string,
+    fname: string,
+    // lname: string,
     email: string,
     password: string,
-    confirmPass: string
+    re_password: string
 }

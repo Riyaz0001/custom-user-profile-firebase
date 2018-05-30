@@ -8,7 +8,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<!-- <ion-content padding> -->
 
     <!-- <ion-item>
         <ion-label floating>Email Address</ion-label>
@@ -18,89 +18,175 @@
     <!-- <ion-item>
         <ion-label floating>First Name</ion-label>
         <ion-input type="text" [(ngModel)]="profile.firstName"></ion-input>
-    </ion-item>
-
-    <ion-item>
-        <ion-label floating>Last Name</ion-label>
-        <ion-input type="text" [(ngModel)]="profile.lastName"></ion-input>
-    </ion-item>
-
-    <ion-item>
-        <ion-label floating>Phone Number</ion-label>
-        <ion-input type="text" [(ngModel)]="profile.phoneNumber"></ion-input>
     </ion-item> -->
 
     <!-- <ion-item>
-        <ion-label floating>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
-    </ion-item>
+        <ion-label floating>Last Name</ion-label>
+        <ion-input type="text" [(ngModel)]="profile.lastName"></ion-input>
+    </ion-item> -->
 
-    <ion-item>
+    <!-- <ion-item>
+        <ion-label floating>Phone Number</ion-label>
+        <ion-input type="text" [(ngModel)]="profile.phoneNumber"></ion-input>
+    </ion-item>  -->
+
+    <!-- <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item> -->
+
+    <!-- <ion-item>
         <ion-label floating>Confirm Password</ion-label>
-        <ion-input type="password" [(ngModel)]="user.confirmPass"></ion-input>
-    </ion-item>
+        <ion-input type="password" [(ngModel)]="confirmPass"></ion-input>
+    </ion-item> -->
 
-    <button ion-button (click)="register(user)">Register</button>
-         -->
+    <ion-content padding>
+        <ion-list>
+          <form novalidate (ngSubmit)="register(user)" [formGroup]="registerForm">
+
+            <ion-item>
+                <ion-label floating>Username </ion-label>
+                <ion-input type="text" formControlName="username"></ion-input>
+            </ion-item>
+            <div *ngFor="let validation of validation_messages.username" >
+                <div class="error" *ngIf="registerForm.get('username').hasError(validation.type) && (registerForm.get('username').dirty || registerForm.get('username').touched)">
+                    {{ validation.message }}
+                </div>
+            </div>
+
+            <ion-item>
+                <ion-label floating>Name </ion-label>
+                <ion-input type="text" formControlName="fname"></ion-input>
+            </ion-item>
+            <div *ngFor="let validation of validation_messages.fname" >
+                <div class="error" *ngIf="registerForm.get('fname').hasError(validation.type) && (registerForm.get('fname').dirty || registerForm.get('fname').touched)">
+                    {{ validation.message }}
+                </div>
+            </div>
+
+            <!-- <ion-item>
+                <ion-label floating>Last Name </ion-label>
+                <ion-input type="text" formControlName="lname"></ion-input>
+            </ion-item>
+            <div *ngFor="let validation of validation_messages.lname" >
+                <div class="error" *ngIf="registerForm.get('lname').hasError(validation.type) && (registerForm.get('lname').dirty || registerForm.get('lname').touched)">
+                    {{ validation.message }}
+                </div>
+            </div> -->
+            
+            <ion-item>
+                <ion-label floating>Email </ion-label>
+                <ion-input type="text" formControlName="email"></ion-input>
+            </ion-item>
+            <div *ngFor="let validation of validation_messages.email" >
+                <div class="error" *ngIf="registerForm.get('email').hasError(validation.type) && (registerForm.get('email').dirty || registerForm.get('email').touched)">
+                    {{ validation.message }}
+                </div>
+            </div>
+
+            <ion-item>
+                <ion-label floating>Password </ion-label>
+                <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+            <div *ngFor="let validation of validation_messages.password" >
+                <div class="error" *ngIf="registerForm.get('password').hasError(validation.type) && (registerForm.get('password').dirty || registerForm.get('password').touched)">
+                    {{ validation.message }}
+                </div>
+            </div>
+
+            <ion-item>
+                <ion-label floating>Confirm Password </ion-label>
+                <ion-input type="password" formControlName="confirm_password"></ion-input>
+            </ion-item>
+            <div *ngFor="let validation of validation_messages.confirm_password" >
+                <div class="error" *ngIf="registerForm.get('confirm_password').hasError(validation.type) && (registerForm.get('confirm_password').dirty) || registerForm.get('confirm_password').touched">
+                    {{ validation.message }}
+                </div>
+            </div>
+            
+            
 
 
 
-    <p *ngIf="submitAttempt" style="color: #ea6153;">There are errors with your submission!</p>
+            <!-- <ion-item no-lines *ngIf="( registerForm.get('name').hasError('minlength') || registerForm.get('name').hasError('maxlength') ||registerForm.get('name').hasError('pattern') ||registerForm.get('name').hasError('required') ) && registerForm.get('name').touched">
+              <div class="error" *ngIf="registerForm.get('name').hasError('required') && registerForm.get('name').touched">
+                Please input your name
+              </div>
+              <div class="error" *ngIf="registerForm.get('name').hasError('minlength') && registerForm.get('name').touched">
+                Minimum 4 characters
+              </div>
+              <div class="error" *ngIf="registerForm.get('name').hasError('maxlength') && registerForm.get('name').touched">
+                Maximum 30 characters
+              </div>
+              <div class="error" *ngIf="registerForm.get('name').hasError('pattern') && registerForm.get('name').touched">
+                Just use alphabet character
+              </div>
+            </ion-item> -->
+      
+            <!-- <ion-item>
+              <ion-label floating>Email</ion-label>
+              <ion-input type="text" [(ngModel)]="userData.email" formControlName="email" [class.error1]="!registerForm.controls.email.valid && registerForm.controls.email.dirty"></ion-input>
+            </ion-item>
+            <ion-item no-lines *ngIf="( registerForm.get('email').hasError('minlength') || registerForm.get('email').hasError('pattern') ||registerForm.get('email').hasError('required') ) && registerForm.get('email').touched">
+              <div class="error" *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').touched">
+                Please input your email
+              </div>
+              <div class="error" *ngIf="registerForm.get('email').hasError('pattern') && registerForm.get('email').touched">
+                Email address invalid
+              </div>
+            </ion-item>
+            <ion-item>
+              <ion-label floating>Username</ion-label>
+              <ion-input type="text" [(ngModel)]="userData.username" formControlName="username" [class.error1]="!registerForm.controls.username.valid && registerForm.controls.username.dirty"></ion-input>
+            </ion-item>
+      
+            <ion-item no-lines *ngIf="( registerForm.get('username').hasError('minlength') || registerForm.get('username').hasError('maxlength') ||registerForm.get('username').hasError('pattern') ||registerForm.get('username').hasError('required') ) && registerForm.get('username').touched">
+              <div class="error" *ngIf="registerForm.get('username').hasError('required') && registerForm.get('username').touched">
+                Please input your username
+              </div>
+              <div class="error" *ngIf="registerForm.get('username').hasError('minlength') && registerForm.get('username').touched">
+                Minimum 4 characters
+              </div>
+              <div class="error" *ngIf="registerForm.get('username').hasError('maxlength') && registerForm.get('username').touched">
+                Maximum 10 characters
+              </div>
+              <div class="error" *ngIf="registerForm.get('username').hasError('pattern') && registerForm.get('username').touched">
+                Just use alphabet character
+              </div>
+            </ion-item>
+            <ion-item>
+              <ion-label floating>Password</ion-label>
+              <ion-input type="password" [(ngModel)]="userData.password" formControlName="password" [class.error1]="!registerForm.controls.password.valid && registerForm.controls.password.dirty"></ion-input>
+            </ion-item>
+      
+            <ion-item no-lines *ngIf="( registerForm.get('password').hasError('minlength') || registerForm.get('password').hasError('maxlength') ||registerForm.get('password').hasError('required') ) && registerForm.get('password').touched">
+              <div class="error" *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched">
+                Please input your password
+              </div>
+              <div class="error" *ngIf="registerForm.get('password').hasError('minlength') && registerForm.get('password').touched">
+                Minimum 6 characters
+              </div>
+              <div class="error" *ngIf="registerForm.get('password').hasError('maxlength') && registerForm.get('password').touched">
+                Maximum 12 characters
+              </div>
+            </ion-item>
 
-    <div [formGroup]="registerForm">
+            <ion-item>
+                <ion-label floating>Confirm Password</ion-label>
+                <ion-input type="password" value="" formControlName="confirm_password"></ion-input>
+            </ion-item>
+            
+            <ion-item no-lines *ngIf="( registerForm.get('confirm_password').hasError('minlength') || registerForm.get('confirm_password').hasError('maxlength') || registerForm.get('confirm_password').hasError('required') ) && registerForm.get('confirm_password').touched">
+                <div class="error" *ngIf="registerForm.get('confirm_password').hasError('required') && registerForm.get('confirm_password').touched">
+                    Please re-input your password
+                </div>
+                <div class="error" *ngIf="registerForm.get('confirm_password').hasError('pw_mismatch') && registerForm.get('confirm_password').touched">
+                        Passwords do not match!
+                </div>
+            </ion-item> -->
 
-    <ion-item [class.invalid]="!email.valid && email.touched">
-        <ion-label floating>Email</ion-label>
-        <ion-input type="text" value="" formControl="email" autocapitalize="off"></ion-input>
-    </ion-item>
+            <button ion-button block color="primary" type="submit" [disabled]="registerForm.invalid">Register</button>
+        </form>
+    </ion-list>
+      </ion-content>
 
-        <ion-item *ngIf="email.hasError('required') && email.touched" class="invalid">
-            <p>* Email is required!</p>
-        </ion-item>
-
-        <ion-item *ngIf="email.hasError('minlength') && email.touched" class="invalid">
-            <p>* Minimum username length is 3!</p>
-        </ion-item>
-
-        <ion-item *ngIf="email.hasError('maxlength') && email.touched" class="invalid">
-            <p>* Maximum username length is 25!</p>
-        </ion-item>
-
-        <ion-item *ngIf="email.hasError('invalid_domain') && email.touched" class="invalid">
-            <p>* Invalid e-mail domain!</p>
-        </ion-item>
-
-    <ion-item [class.invalid]="!password.valid && password.touched">
-        <ion-label floating>Password</ion-label>
-        <ion-input type="password" value="" formControl="password"></ion-input>
-    </ion-item>
-
-        <ion-item *ngIf="password.hasError('required') && password.touched" class="invalid">
-            <p>* Password is required!</p>
-        </ion-item>
-
-        <ion-item *ngIf="password.hasError('minlength') && password.touched" class="invalid">
-            <p>* Minimum password length is 3!</p>
-        </ion-item>
-
-        <ion-item *ngIf="password.hasError('maxlength') && password.touched" class="invalid">
-            <p>* Maximum password length is 25!</p>
-        </ion-item>
-
-    <ion-item [class.invalid]="!re_password.valid && re_password.touched">
-        <ion-label floating>Re-enter Password</ion-label>
-        <ion-input type="password" value="" formControl="re_password"></ion-input>
-    </ion-item>
-
-        <ion-item *ngIf="re_password.hasError('pw_mismatch') && re_password.touched" class="invalid">
-            <p>* Passwords do not match!</p>
-        </ion-item>
-
-    </div>
-
-    <button primary (click)="save()" [disabled]="(!registerForm.valid)">Submit Form</button>
-    <br />
-    <br />
-    <button primary (click)="logControlErrors()">Log Control Errors</button>
-
-</ion-content>
