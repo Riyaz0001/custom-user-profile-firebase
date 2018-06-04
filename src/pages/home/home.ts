@@ -14,6 +14,7 @@ import { Profile } from '../../model/profile';
 export class HomePage {
 
     profileData: AngularFireObject<Profile>
+    userData: any; //Profile;
 
   constructor(
       private afAuth: AngularFireAuth,
@@ -21,6 +22,9 @@ export class HomePage {
       public navCtrl: NavController, 
       public navParams: NavParams, 
       private toast: ToastController) {
+          this.userData = this.navParams.data;
+        //   console.log("User Data: " + JSON.stringify(this.userData));
+          
   }
 
   ionViewWillLoad(){

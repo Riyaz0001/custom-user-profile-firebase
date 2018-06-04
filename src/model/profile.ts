@@ -1,7 +1,7 @@
 export interface Profile {
-    profileUrl: string,
+    uid: string,
     username: string,
-    firstName: string,
-    listName: string,
-    phoneNumber: string
+    profileImgUrl: string,
+    name: string,
+    email: string,
 }

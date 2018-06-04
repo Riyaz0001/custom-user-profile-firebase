@@ -1,28 +1,79 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams, AlertController, ToastController, MenuController } from "ionic-angular";
 
+// Firebase services
 import { AngularFireAuth } from "angularfire2/auth";
 import firebase from 'firebase';
 
-import { User } from '../../model/user';
-import { RegisterPage } from '../register/register';
-// import { ProfilePage } from '../profile/profile';
+// Register & Home page
 import { HomePage } from '../home/home';
-
+import { RegisterPage } from "../register/register";
+import { User } from '../../model/user';
 
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: 'login.html'
 })
 export class LoginPage {
 
     user = {} as User;
 
-  constructor(private auth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+      public navCtrl: NavController,
+      public navParams: NavParams, 
+      public forgotCtrl: AlertController, 
+      public menu: MenuController, 
+      public toastCtrl: ToastController,
+      private auth: AngularFireAuth ) {
+
+          this.menu.swipeEnable(false);
+        }
+
+  // go to register page
+  register() {
+    this.navCtrl.setRoot(RegisterPage);
   }
 
-  async login(user: User) {
+  forgotPass() {
+    let forgot = this.forgotCtrl.create({
+      title: 'Forgot Password?',
+      message: "Enter you email address to send a reset link password.",
+      inputs: [
+        {
+          name: 'email',
+          placeholder: 'Email',
+          type: 'email'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Send',
+          handler: data => {
+            console.log('Send clicked');
+            let toast = this.toastCtrl.create({
+              message: 'Email was sended successfully',
+              duration: 3000,
+              position: 'top',
+              cssClass: 'dark-trans',
+              closeButtonText: 'OK',
+              showCloseButton: true
+            });
+            toast.present();
+          }
+        }
+      ]
+    });
+    forgot.present();
+  }
+
+    async login(user: User) {
       try {
           const result = await this.auth.auth.signInWithEmailAndPassword(user.email, user.password);
           //console.log('Login Success, Data: ' + JSON.stringify(result));
@@ -42,6 +93,7 @@ export class LoginPage {
       this.auth.auth.signInWithPopup(fireAuthGoogle)
           .then(data => {
               console.log("Google+ Login Success, Data: " + JSON.stringify(data));
+              return this.navCtrl.push(HomePage, data);
               
           }).catch(e => console.error("Google+ Login Error: " + JSON.stringify(e)));
   }
@@ -55,8 +107,13 @@ export class LoginPage {
         }).catch(e => console.error("Facebook Login Error: " + JSON.stringify(e)));
     }
 
-  register() {
-      this.navCtrl.push(RegisterPage);
-  }
+    loginWithTwitter() {
+        let fireAuthtwitter = new firebase.auth.TwitterAuthProvider();
+        this.auth.auth.signInWithPopup(fireAuthtwitter)
+            .then(data => {
+                console.log("Twitter Login Success, Data: " + JSON.stringify(data));
+                
+            }).catch(e => console.error("Twitter Login Error: " + JSON.stringify(e)));
+        }
 
 }

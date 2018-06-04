@@ -9,7 +9,13 @@
 
 
 <ion-content padding>
-    <p><strong>Username: </strong>{{(profileData | async)?.username}}</p>
+    <ion-list>
+        <ion-item>
+            <strong>UID:</strong> {{ userData.uid }}
+        </ion-item>
+
+    </ion-list>
+    <!-- <p><strong>Username: </strong>{{(profileData | async)?.username}}</p>
     <p><strong>First Name: </strong>{{(profileData | async)?.firstName}}</p>
-    <p><strong>List Name: </strong>{{(profileData | async)?.lastName}}</p>
+    <p><strong>List Name: </strong>{{(profileData | async)?.lastName}}</p> -->
 </ion-content>

@@ -40,8 +40,111 @@
         <ion-input type="password" [(ngModel)]="confirmPass"></ion-input>
     </ion-item> -->
 
-    <ion-content padding>
-        <ion-list>
+    <ion-content class="auth-page">
+        <div class="login-content">
+
+            <!-- Logo -->
+            <div padding text-center>
+                <div class="logo"></div>
+                <h2 ion-text class="text-primary">
+                <strong>SMS</strong> Guide App
+                </h2>
+            </div>
+
+            <form class="list-form" [formGroup]="registrationForm" (ngSubmit)="register(user)" novalidate>
+                
+            <ion-item>
+                <ion-label floating>
+                    <ion-icon name="person" item-start class="text-primary"></ion-icon>
+                    Username
+                </ion-label>
+                <ion-input type="text" formControlName="username"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+                <div *ngFor="let validation of validation_messages.username" >
+                    <div class="error" *ngIf="registrationForm.controls.username.hasError(validation.type) && (registrationForm.controls.username.dirty || registrationForm.controls.username.touched)">
+                        {{ validation.message }}
+                    </div>
+                </div>
+            </ion-item>
+
+
+            <ion-item>
+                <ion-label floating>
+                    <ion-icon name="person" item-start class="text-primary"></ion-icon>
+                    Full Name 
+                </ion-label>
+                <ion-input type="text" formControlName="name"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+                <div *ngFor="let validation of validation_messages.name" >
+                    <div class="error" *ngIf="registrationForm.controls.name.hasError(validation.type) && (registrationForm.controls.name.dirty || registrationForm.controls.name.touched)">
+                        {{ validation.message }}
+                    </div>
+                </div>
+            </ion-item>
+
+
+            <ion-item>
+                <ion-label floating>
+                    <ion-icon name="mail" item-start class="text-primary"></ion-icon>
+                    Email
+                </ion-label>
+                <ion-input type="text" formControlName="email"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+                <div *ngFor="let validation of validation_messages.email" >
+                    <div class="error" *ngIf="registrationForm.controls.email.hasError(validation.type) && (registrationForm.controls.email.dirty || registrationForm.controls.email.touched)">
+                        {{ validation.message }}
+                    </div>
+                </div>
+            </ion-item>
+
+
+            <ion-item>
+                <ion-label floating>
+                    <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+                    Password
+                </ion-label>
+                <ion-input type="text" formControlName="password"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+                <div *ngFor="let validation of validation_messages.password" >
+                    <div class="error" *ngIf="registrationForm.controls.password.hasError(validation.type) && (registrationForm.controls.password.dirty || registrationForm.controls.password.touched)">
+                        {{ validation.message }}
+                    </div>
+                </div>
+            </ion-item>
+
+
+            <ion-item>
+                <ion-label floating>
+                    <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+                    Confirm Password
+                </ion-label>
+                <ion-input type="text" formControlName="confirmPassword"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+                <!-- <div *ngFor="let validation of validation_messages.confirmPassword" >
+                    <div class="error" *ngIf="registrationForm.controls.confirmPassword.hasError(validation.type) && (registrationForm.controls.confirmPassword.dirty || registrationForm.controls.confirmPassword.touched)">
+                        {{ validation.message }}
+                    </div>
+                </div> -->
+                <div class='form-text error' *ngIf="registrationForm.controls.confirmPassword.touched">
+                    <div class='form-text error' *ngIf="registrationForm.controls.confirmPassword.touched"></div>
+                    <div *ngIf="registrationForm.hasError('mismatchedPasswords')">Passwords do not match.</div>
+                </div> 
+            </ion-item>
+
+            <button ion-button block color="primary" type="submit" [disabled]="registrationForm.invalid">Register</button>
+            
+        </form>    
+            <pre>{{registrationForm.value | json}}</pre>
+            
+        </div>
+        </ion-content>
+
+    <!--
           <form novalidate (ngSubmit)="register(user)" [formGroup]="registerForm">
 
             <ion-item>
@@ -62,7 +165,7 @@
                 <div class="error" *ngIf="registerForm.get('fname').hasError(validation.type) && (registerForm.get('fname').dirty || registerForm.get('fname').touched)">
                     {{ validation.message }}
                 </div>
-            </div>
+            </div> -->
 
             <!-- <ion-item>
                 <ion-label floating>Last Name </ion-label>
@@ -74,7 +177,7 @@
                 </div>
             </div> -->
             
-            <ion-item>
+            <!-- <ion-item>
                 <ion-label floating>Email </ion-label>
                 <ion-input type="text" formControlName="email"></ion-input>
             </ion-item>
@@ -102,7 +205,7 @@
                 <div class="error" *ngIf="registerForm.get('confirm_password').hasError(validation.type) && (registerForm.get('confirm_password').dirty) || registerForm.get('confirm_password').touched">
                     {{ validation.message }}
                 </div>
-            </div>
+            </div> -->
             
             
 
@@ -185,8 +288,8 @@
                 </div>
             </ion-item> -->
 
-            <button ion-button block color="primary" type="submit" [disabled]="registerForm.invalid">Register</button>
+            <!-- <button ion-button block color="primary" type="submit" [disabled]="registerForm.invalid">Register</button>
         </form>
-    </ion-list>
-      </ion-content>
+    </ion-list> -->
+      <!-- </ion-content> -->
 
